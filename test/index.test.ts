@@ -53,6 +53,16 @@ describe('worker.fetch', () => {
     expect(tasks).toHaveLength(0);
   });
 
+  it('logs and returns 500 on invalid config', async () => {
+    const error = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const { ctx, tasks } = makeCtx();
+    const res = await worker.fetch(post(commandUpdate), { ...env, ALLOWED_CHAT_IDS: 'oops' }, ctx);
+    expect(res.status).toBe(500);
+    expect(tasks).toHaveLength(0);
+    expect(error).toHaveBeenCalledWith(expect.stringContaining('config'), expect.any(Error));
+    error.mockRestore();
+  });
+
   it('acknowledges invalid JSON with 200 and does no work', async () => {
     const { ctx, tasks } = makeCtx();
     const res = await worker.fetch(post('not json'), env, ctx);

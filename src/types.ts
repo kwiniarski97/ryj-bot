@@ -17,6 +17,7 @@ export interface TgEntity {
 export interface TgMessage {
   message_id: number;
   chat: { id: number };
+  date?: number;
   from?: TgUser;
   text?: string;
   caption?: string;
