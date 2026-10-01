@@ -81,8 +81,26 @@ System prompt in English, instructing output in `LANGUAGE`:
   gender identity, disability; no threats of violence;
 - output only the roast, no quotes, no preamble.
 
+- one comedic **angle** for this roast (see below).
+
 User message: target name + optional context.
-Polish output quality with the English prompt must be verified live.
+
+**Angle randomization.** Spike showed the model repeats near-identical roasts for
+the same input. Each call picks one angle uniformly at random (injectable RNG for
+tests) and adds it to the system prompt. Built-in list:
+their message (only when context present), "their mum" (twoja stara), intelligence,
+life choices, job/money, laziness, comparison to an animal or object, absurd hyperbole,
+everyday-life situation. Body/appearance deliberately excluded.
+
+**Prompt language.** A/B test (Polish vs English system prompt, `very-hard`) showed
+no meaningful quality difference — both produce occasional grammar slips at max
+vulgarity; the Polish one repeated itself more. English prompt is kept because it
+makes `LANGUAGE` a real setting.
+
+**`SYSTEM_PROMPT` override.** When set, replaces the built-in system prompt entirely.
+Placeholders substituted by code: `{language}`, `{spiciness}` (the level's
+instruction text), `{angle}`. Unknown placeholders left as-is. The user message
+(name + context) is unchanged.
 
 ### AI client (`ai.ts`)
 
@@ -111,6 +129,7 @@ blocks and surrounding quotes/whitespace. Empty result or non-2xx → throws.
 | `AI_MODEL` | var | `gemini-3.5-flash-lite` |
 | `AI_REASONING_EFFORT` | var | `low` (empty = omit) |
 | `ALLOWED_CHAT_IDS` | var | empty = all chats; comma-separated ids |
+| `SYSTEM_PROMPT` | var | empty = built-in prompt; supports `{language}` `{spiciness}` `{angle}` |
 | `FALLBACK_TEXT` | var | `Zamknij się. (AI odmówiło współpracy)` |
 | `TELEGRAM_BOT_TOKEN` | secret | required |
 | `TELEGRAM_WEBHOOK_SECRET` | secret | required |
@@ -132,7 +151,9 @@ Local dev: `.dev.vars` (gitignored), `.dev.vars.example` committed.
 vitest, plain Node environment (units are pure or `fetch`-based, `fetch` mocked):
 - `parse`: reply, text_mention, @mention, no target → sender, target = bot → sender,
   `/cmd@BotName`, `/cmd@OtherBot` ignored, non-command ignored, caption context, truncation.
-- `prompt`: language inserted, each spiciness level, context included/omitted.
+- `prompt`: language inserted, each spiciness level, context included/omitted,
+  angle chosen via injected RNG, "their message" angle never picked without context,
+  `SYSTEM_PROMPT` override with placeholder substitution.
 - `ai`: request shape (reasoning omitted when empty), thought stripping, non-2xx throws, empty throws.
 - `index`: 405/401, allowlist, fallback on AI error, reply vs mention addressing.
 
