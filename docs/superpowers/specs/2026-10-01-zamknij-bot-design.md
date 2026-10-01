@@ -70,7 +70,7 @@ when known.
 
 ### Prompt (`prompt.ts`)
 
-System prompt in English, instructing output in `LANGUAGE`:
+System prompt (Polish, see below), instructing output in `LANGUAGE`:
 - one short roast (max 2 sentences) telling the target to shut up, addressed by name;
 - natural colloquial language, use the provided message as material when present;
 - spiciness instruction per level:
@@ -93,10 +93,15 @@ their message (only when context present), "their mum" (twoja stara), intelligen
 life choices, job/money, laziness, comparison to an animal or object, absurd hyperbole,
 everyday-life situation. Body/appearance deliberately excluded.
 
-**Prompt language.** A/B test (Polish vs English system prompt, `very-hard`) showed
-no meaningful quality difference — both produce occasional grammar slips at max
-vulgarity; the Polish one repeated itself more. English prompt is kept because it
-makes `LANGUAGE` a real setting.
+**Prompt language.** The built-in prompt, spiciness texts and angles are **Polish**.
+The first A/B test (Polish vs English system prompt) looked equal only because the
+user message was Polish too. The live check during implementation (English prompt,
+`Person: Kaśka`, no context) produced English/Irish-slang roasts in most runs, even with
+the language repeated three times; the Polish prompt gave 10/10 Polish.
+`LANGUAGE` is still inserted ("Piszesz wyłącznie w języku: {language}" plus a reminder
+in the user message); for a non-Polish output, also set `SYSTEM_PROMPT` in that language.
+The forbidden list also covers jokes about sexual violence and incest (one live output
+went there).
 
 **`SYSTEM_PROMPT` override.** When set, replaces the built-in system prompt entirely.
 Placeholders substituted by code: `{language}`, `{spiciness}` (the level's
