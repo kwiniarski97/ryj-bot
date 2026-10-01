@@ -1,0 +1,21 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "zamknij-bot",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-01",
+  "observability": { "enabled": true },
+  // Secrets (set with `npx wrangler secret put <NAME>`):
+  //   TELEGRAM_BOT_TOKEN, TELEGRAM_WEBHOOK_SECRET, AI_API_KEY
+  "vars": {
+    "BOT_USERNAME": "CHANGE_ME_bot",
+    "LANGUAGE": "polski",
+    "SPICINESS": "very-hard", // mild | medium | hard | very-hard
+    "COMMAND": "zamknij",
+    "AI_BASE_URL": "https://generativelanguage.googleapis.com/v1beta/openai",
+    "AI_MODEL": "gemini-3.5-flash-lite",
+    "AI_REASONING_EFFORT": "low", // "" = don't send the parameter
+    "ALLOWED_CHAT_IDS": "", // comma-separated chat ids; "" = all chats
+    "SYSTEM_PROMPT": "", // "" = built-in; placeholders: {language} {spiciness} {angle}
+    "FALLBACK_TEXT": "Zamknij się. (AI odmówiło współpracy)"
+  }
+}

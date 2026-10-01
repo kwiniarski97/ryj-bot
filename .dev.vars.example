@@ -1,0 +1,3 @@
+TELEGRAM_BOT_TOKEN=123456:ABC...
+TELEGRAM_WEBHOOK_SECRET=generate-with-openssl-rand-hex-32
+AI_API_KEY=your-gemini-api-key
