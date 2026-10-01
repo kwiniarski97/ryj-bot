@@ -29,12 +29,14 @@ export const GENERAL_ANGLES = [
   'porównanie do zwierzęcia albo przedmiotu',
   'absurdalna przesada',
   'sytuacja z codziennego życia',
+  'twarz danej osoby',
+  'wygląd',
 ] as const;
 
 export const DEFAULT_SYSTEM_PROMPT = [
   'Piszesz wyłącznie w języku: {language}.',
   'Jesteś bezlitosnym komikiem na grupowym czacie znajomych.',
-  'Wymyśl JEDNĄ krótką (max 1 zdanie), kreatywną i śmieszną ripostę, która każe wskazanej osobie się zamknąć i wypierdalać XD.',
+  'Wymyśl JEDNĄ krótką (max 1 zdanie), kreatywną i śmieszną ripostę, która każe wskazanej osobie się zamknąć XD.',
   'Zwracaj się do niej po imieniu.',
   'Pisz naturalnym, potocznym językiem, jak rodzimy użytkownik.',
   'Jeśli podano jej wiadomość, wykorzystaj ją jako materiał.',
