@@ -8,7 +8,7 @@
   //   TELEGRAM_BOT_TOKEN, TELEGRAM_WEBHOOK_SECRET, AI_API_KEY
   "vars": {
     "BOT_USERNAME": "CHANGE_ME_bot",
-    "LANGUAGE": "polski",
+    "LANGUAGE": "polski", // output language; for others also set SYSTEM_PROMPT in that language
     "SPICINESS": "very-hard", // mild | medium | hard | very-hard
     "COMMAND": "zamknij",
     "AI_BASE_URL": "https://generativelanguage.googleapis.com/v1beta/openai",

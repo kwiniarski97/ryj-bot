@@ -6,37 +6,43 @@ export interface ChatMessage {
   content: string;
 }
 
+// The built-in prompt is Polish on purpose: with an English prompt and no Polish
+// context the model drifted into English (live check, 2026-10-01). For another
+// output language set LANGUAGE and ideally a SYSTEM_PROMPT written in that language.
+
 export const SPICINESS_INSTRUCTIONS: Record<Spiciness, string> = {
-  mild: 'Keep it witty and clean: no swearing or vulgarity.',
-  medium: 'Light swearing is allowed, but wit comes first.',
-  hard: 'Strong profanity is allowed and encouraged.',
-  'very-hard': 'No holding back: be maximally brutal and vulgar.',
+  mild: 'Dowcipnie i kulturalnie: bez przekleństw i wulgaryzmów.',
+  medium: 'Lekkie przekleństwa dozwolone, ale najważniejszy jest dowcip.',
+  hard: 'Mocne przekleństwa dozwolone i mile widziane.',
+  'very-hard': 'Bez hamulców: maksymalnie brutalnie i wulgarnie.',
 };
 
-export const MESSAGE_ANGLE = 'mock what they just wrote';
+export const MESSAGE_ANGLE = 'wyśmiej to, co właśnie napisała ta osoba';
 
 // Body/appearance deliberately excluded.
 export const GENERAL_ANGLES = [
-  'a "your mum" joke',
-  'their intelligence',
-  'their life choices',
-  'their job and money situation',
-  'their laziness',
-  'compare them to an animal or an object',
-  'absurd hyperbole',
-  'an everyday-life situation',
+  'żart o jej starej (klasyczne „twoja stara”)',
+  'jej inteligencja',
+  'jej życiowe wybory',
+  'jej praca i kasa',
+  'jej lenistwo',
+  'porównanie do zwierzęcia albo przedmiotu',
+  'absurdalna przesada',
+  'sytuacja z codziennego życia',
 ] as const;
 
 export const DEFAULT_SYSTEM_PROMPT = [
-  'You are a merciless comedian in a group chat of friends.',
-  'Write ONE short (max 2 sentences), creative and funny comeback telling the given person to shut up.',
-  'Address them by name.',
-  'Write in {language}, using natural, colloquial language as a native speaker would.',
-  'If their message is provided, use it as material.',
-  'Comedic angle for this one: {angle}.',
+  'Piszesz wyłącznie w języku: {language}.',
+  'Jesteś bezlitosnym komikiem na grupowym czacie znajomych.',
+  'Wymyśl JEDNĄ krótką (max 2 zdania), kreatywną i śmieszną ripostę, która każe wskazanej osobie się zamknąć.',
+  'Zwracaj się do niej po imieniu.',
+  'Pisz naturalnym, potocznym językiem, jak rodzimy użytkownik.',
+  'Jeśli podano jej wiadomość, wykorzystaj ją jako materiał.',
+  'Motyw tej riposty: {angle}.',
   '{spiciness}',
-  'Forbidden at every level: attacks on race, ethnicity, religion, sexual orientation, gender identity, disability, and threats of violence.',
-  'Output only the roast, no quotes, no preamble.',
+  'Zawsze zakazane: ataki na rasę, pochodzenie, religię, orientację seksualną, tożsamość płciową, niepełnosprawność; żarty o przemocy seksualnej i kazirodztwie; groźby przemocy.',
+  'Odpowiedz wyłącznie samą ripostą, bez cudzysłowów i wstępów.',
+  'Riposta MUSI być w całości w języku: {language}.',
 ].join(' ');
 
 export function pickAngle(hasContext: boolean, rng: () => number): string {
@@ -58,9 +64,11 @@ export function buildMessages(
   const system = (cfg.systemPrompt ?? DEFAULT_SYSTEM_PROMPT).replace(/\{(\w+)\}/g, (placeholder, key: string) =>
     Object.hasOwn(values, key) ? values[key] : placeholder,
   );
-  const user = req.context
-    ? `Person: ${req.targetName}\nTheir message: "${req.context}"`
-    : `Person: ${req.targetName}`;
+  const user = [
+    `Osoba: ${req.targetName}`,
+    ...(req.context ? [`Jej wiadomość: "${req.context}"`] : []),
+    `Odpowiedz wyłącznie w języku: ${cfg.language}.`,
+  ].join('\n');
   return [
     { role: 'system', content: system },
     { role: 'user', content: user },
