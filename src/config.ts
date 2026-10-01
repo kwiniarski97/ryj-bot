@@ -36,7 +36,7 @@ export interface Config {
 export const DEFAULTS = {
   language: 'polski',
   spiciness: 'very-hard' as Spiciness,
-  command: 'zamknij',
+  command: 'ryj',
   aiBaseUrl: 'https://generativelanguage.googleapis.com/v1beta/openai',
   aiModel: 'gemini-3.5-flash-lite',
   aiReasoningEffort: 'low',

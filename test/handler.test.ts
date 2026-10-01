@@ -15,7 +15,7 @@ const marek = { id: 1, is_bot: false, first_name: 'Marek', username: 'marek_x' }
 const kaska = { id: 2, is_bot: false, first_name: 'Kaśka' };
 
 function update(message: Partial<TgMessage>): TgUpdate {
-  return { update_id: 1, message: { message_id: 10, chat: { id: -100 }, from: kaska, text: '/zamknij', ...message } };
+  return { update_id: 1, message: { message_id: 10, chat: { id: -100 }, from: kaska, text: '/ryj', ...message } };
 }
 
 const completion = (content: unknown) =>
@@ -59,9 +59,9 @@ describe('handleUpdate', () => {
   });
 
   it('addresses a mentioned user by handle', async () => {
-    const text = '/zamknij @marek_x';
+    const text = '/ryj @marek_x';
     aiResponse = () => completion('Zamknij się, geniuszu.');
-    await handleUpdate(update({ text, entities: [{ type: 'mention', offset: 9, length: 8 }] }), cfg);
+    await handleUpdate(update({ text, entities: [{ type: 'mention', offset: 5, length: 8 }] }), cfg);
     expect(sent).toEqual([{ chat_id: -100, text: '@marek_x, Zamknij się, geniuszu.' }]);
   });
 

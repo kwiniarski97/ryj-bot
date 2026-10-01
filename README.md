@@ -1,18 +1,18 @@
 # zamknij-bot
 
-Telegram bot: `/zamknij` → AI-generated roast telling someone to shut up.
+Telegram bot: `/ryj` → AI-generated roast telling someone to shut up.
 Cloudflare Worker + any OpenAI-compatible model (default: Gemini 3.5 Flash-Lite, free tier).
 
 ## Usage in a group
 
-- Reply to someone's message with `/zamknij` → roasts the author, using their message as material.
-- `/zamknij @username` → roasts that user.
-- `/zamknij` alone (or targeting the bot) → roasts you.
+- Reply to someone's message with `/ryj` → roasts the author, using their message as material.
+- `/ryj @username` → roasts that user.
+- `/ryj` alone (or targeting the bot) → roasts you.
 
 ## Setup
 
 1. Create a bot with [@BotFather](https://t.me/BotFather) (`/newbot`), note the token and username.
-   If `/zamknij` without `@BotName` is ignored in your group, run `/setprivacy` → Disable in BotFather
+   If `/ryj` without `@BotName` is ignored in your group, run `/setprivacy` → Disable in BotFather
    (or make the bot a group admin) and re-add the bot to the group.
 2. Get a Gemini API key at https://aistudio.google.com/apikey.
 3. Install and configure:
@@ -37,7 +37,7 @@ Cloudflare Worker + any OpenAI-compatible model (default: Gemini 3.5 Flash-Lite,
 | `BOT_USERNAME` | — | Required, without `@` |
 | `LANGUAGE` | `polski` | Output language (see note below) |
 | `SPICINESS` | `very-hard` | `mild` \| `medium` \| `hard` \| `very-hard` |
-| `COMMAND` | `zamknij` | Command name without `/` |
+| `COMMAND` | `ryj` | Command name without `/` |
 | `AI_BASE_URL` | Gemini OpenAI endpoint | Any OpenAI-compatible `/chat/completions` base |
 | `AI_MODEL` | `gemini-3.5-flash-lite` | |
 | `AI_REASONING_EFFORT` | `low` | `""` = don't send it (some models reject it) |
