@@ -9,7 +9,7 @@
   "vars": {
     "BOT_USERNAME": "zamknij_ta_dupe_bot",
     "LANGUAGE": "polski", // output language; for others also set SYSTEM_PROMPT in that language
-    "SPICINESS": "very-hard", // mild | medium | hard | very-hard
+    "SPICINESS": "hard", // mild | medium | hard | very-hard
     "COMMAND": "ryj",
     "AI_BASE_URL": "https://generativelanguage.googleapis.com/v1beta/openai",
     "AI_MODEL": "gemini-3.5-flash-lite",
