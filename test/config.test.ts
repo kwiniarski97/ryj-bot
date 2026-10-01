@@ -19,7 +19,7 @@ describe('loadConfig', () => {
       botUsername: 'ZamknijBot',
       language: 'polski',
       spiciness: 'very-hard',
-      command: 'zamknij',
+      command: 'ryj',
       aiBaseUrl: 'https://generativelanguage.googleapis.com/v1beta/openai',
       aiModel: 'gemini-3.5-flash-lite',
       aiReasoningEffort: 'low',

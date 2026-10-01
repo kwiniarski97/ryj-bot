@@ -129,7 +129,7 @@ blocks and surrounding quotes/whitespace. Empty result or non-2xx → throws.
 |---|---|---|
 | `LANGUAGE` | var | `polski` |
 | `SPICINESS` | var | `very-hard` (`mild\|medium\|hard\|very-hard`) |
-| `COMMAND` | var | `zamknij` |
+| `COMMAND` | var | `ryj` |
 | `BOT_USERNAME` | var | — (required; for `/cmd@Bot` and self-target detection) |
 | `AI_BASE_URL` | var | `https://generativelanguage.googleapis.com/v1beta/openai` |
 | `AI_MODEL` | var | `gemini-3.5-flash-lite` |

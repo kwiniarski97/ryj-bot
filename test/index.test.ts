@@ -23,7 +23,7 @@ function post(body: string, secret: string | null = 'secret') {
 
 const commandUpdate = JSON.stringify({
   update_id: 1,
-  message: { message_id: 10, chat: { id: -100 }, from: { id: 2, is_bot: false, first_name: 'Kaśka' }, text: '/zamknij' },
+  message: { message_id: 10, chat: { id: -100 }, from: { id: 2, is_bot: false, first_name: 'Kaśka' }, text: '/ryj' },
 });
 
 let fetchMock: ReturnType<typeof vi.fn>;
