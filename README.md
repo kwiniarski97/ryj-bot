@@ -27,7 +27,7 @@ Cloudflare Worker + any OpenAI-compatible model (default: Gemini 3.5 Flash-Lite,
 4. Deploy and register the webhook:
    ```bash
    npm run deploy
-   TELEGRAM_BOT_TOKEN=... TELEGRAM_WEBHOOK_SECRET=... npm run set-webhook -- https://zamknij-bot.<you>.workers.dev
+   TELEGRAM_BOT_TOKEN=...:... TELEGRAM_WEBHOOK_SECRET=... npm run set-webhook -- ryj-bot.kw97.workers.dev
    ```
 
 ## Configuration (`wrangler.jsonc` → `vars`)
