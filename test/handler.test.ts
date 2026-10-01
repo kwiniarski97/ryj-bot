@@ -83,6 +83,17 @@ describe('handleUpdate', () => {
     expect(sent[0]).toMatchObject({ chat_id: -100, message_thread_id: 77 });
   });
 
+  it('ignores commands older than two minutes (backlog after an outage)', async () => {
+    const stale = Math.floor(Date.now() / 1000) - 121;
+    await handleUpdate(update({ date: stale }), cfg);
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it('handles fresh commands', async () => {
+    await handleUpdate(update({ date: Math.floor(Date.now() / 1000) - 5 }), cfg);
+    expect(sent).toHaveLength(1);
+  });
+
   it('ignores chats outside the allowlist', async () => {
     await handleUpdate(update({}), { ...cfg, allowedChatIds: [-999] });
     expect(fetchMock).not.toHaveBeenCalled();
@@ -118,6 +129,16 @@ describe('addressRoast', () => {
 
   it('keeps a leading name when there is no handle', () => {
     expect(addressRoast({ chatId: 1, targetName: 'Kaśka' }, 'kaśka, cicho.')).toBe('kaśka, cicho.');
+  });
+
+  it('keeps an inflected (vocative) name and pings the handle in front', () => {
+    const michal = { chatId: 1, targetName: 'Michał', targetHandle: '@michal99' };
+    expect(addressRoast(michal, 'Michale, cicho.')).toBe('@michal99 Michale, cicho.');
+    expect(addressRoast(mention, 'Marku, cicho.')).toBe('@marek_x Marku, cicho.');
+  });
+
+  it('leaves an inflected name alone when there is no handle', () => {
+    expect(addressRoast({ chatId: 1, targetName: 'Kaśka' }, 'Kaśko, cicho.')).toBe('Kaśko, cicho.');
   });
 
   it('prefixes handle or name otherwise', () => {

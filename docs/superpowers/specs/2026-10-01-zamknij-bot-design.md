@@ -148,6 +148,8 @@ Local dev: `.dev.vars` (gitignored), `.dev.vars.example` committed.
 
 - Wrong method → 405; bad/missing secret header → 401; invalid JSON → 200 (ignored).
 - Chat not in allowlist → ignored silently.
+- Command older than 120 s (Telegram backlog after an outage/misconfig) → ignored.
+- Invalid config → logged with `console.error`, 500 (Telegram retries; the age check drops the stale backlog).
 - AI failure/timeout/empty → send `FALLBACK_TEXT` (same reply/addressing rules), log error.
 - Telegram `sendMessage` failure → log error, nothing else.
 - All processing errors caught inside `waitUntil`; Telegram always gets 200 for valid requests.
