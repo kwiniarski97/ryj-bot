@@ -1,13 +1,13 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "zamknij-bot",
+  "name": "ryj-bot",
   "main": "src/index.ts",
   "compatibility_date": "2026-09-01",
   "observability": { "enabled": true },
   // Secrets (set with `npx wrangler secret put <NAME>`):
   //   TELEGRAM_BOT_TOKEN, TELEGRAM_WEBHOOK_SECRET, AI_API_KEY
   "vars": {
-    "BOT_USERNAME": "CHANGE_ME_bot",
+    "BOT_USERNAME": "zamknij_ta_dupe_bot",
     "LANGUAGE": "polski", // output language; for others also set SYSTEM_PROMPT in that language
     "SPICINESS": "very-hard", // mild | medium | hard | very-hard
     "COMMAND": "ryj",
@@ -16,6 +16,6 @@
     "AI_REASONING_EFFORT": "low", // "" = don't send the parameter
     "ALLOWED_CHAT_IDS": "", // comma-separated chat ids; "" = all chats
     "SYSTEM_PROMPT": "", // "" = built-in; placeholders: {language} {spiciness} {angle}
-    "FALLBACK_TEXT": "Zamknij się. (AI odmówiło współpracy)"
+    "FALLBACK_TEXT": "Jestem cwelem xD"
   }
 }
