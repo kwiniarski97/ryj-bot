@@ -44,7 +44,8 @@ Telegram ──POST update──▶ Worker fetch()
 | `src/prompt.ts` | Pure: `RoastRequest` + config → chat messages |
 | `src/ai.ts` | OpenAI-compatible call with timeout; returns text or throws |
 | `src/telegram.ts` | `sendMessage` wrapper |
-| `scripts/set-webhook.ts` | Registers webhook URL + secret with Telegram |
+| `scripts/set-webhook.mjs` | Registers webhook URL + secret with Telegram |
+| `scripts/try-roast.ts` | Dev tool: prints sample roasts from the real prompt/provider (no Telegram) |
 
 ### Command parsing (`parse.ts`)
 
