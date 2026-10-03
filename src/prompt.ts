@@ -19,7 +19,6 @@ export const SPICINESS_INSTRUCTIONS: Record<Spiciness, string> = {
 
 export const MESSAGE_ANGLE = 'wyśmiej to, co właśnie napisała ta osoba';
 
-// Body/appearance deliberately excluded.
 export const GENERAL_ANGLES = [
   'żart o jej starej (klasyczne „twoja stara”)',
   'jej inteligencja',
@@ -31,6 +30,11 @@ export const GENERAL_ANGLES = [
   'sytuacja z codziennego życia',
   'twarz danej osoby',
   'wygląd',
+  'chyba ty',
+  'nie bo ty',
+  'jej orientacja seksualna',
+  'otyłość',
+  'chytrość'
 ] as const;
 
 export const DEFAULT_SYSTEM_PROMPT = [
