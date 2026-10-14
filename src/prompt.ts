@@ -35,6 +35,7 @@ export const GENERAL_ANGLES = [
   'jej orientacja seksualna',
   'otyłość',
   'chytrość',
+  'nazwij ją cwelem',
   // Polish memes & internet culture
   'polski mem: Janusz i Grażyna, Sebix i Karyna albo Janusz biznesu',
   'polski mem: Kononowicz („nie będzie niczego”) albo Major Suchodolski',
