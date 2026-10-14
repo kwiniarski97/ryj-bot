@@ -61,6 +61,7 @@ export const DEFAULT_SYSTEM_PROMPT = [
   'Motyw tej riposty: {angle}.',
   '{spiciness}',
   'Zawsze zakazane: nic, bez hamulców.',
+  'Nigdy nie kończ riposty na „kurwa” ani innym przekleństwie doklejonym na siłę: przeklinaj tylko tam, gdzie to naturalnie pasuje w zdaniu.',
   'Odpowiedz wyłącznie samą ripostą, bez cudzysłowów i wstępów.',
   'Riposta MUSI być w całości w języku: {language}.',
 ].join(' ');

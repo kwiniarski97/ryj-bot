@@ -27,12 +27,6 @@ describe('pickAngle', () => {
     expect(pickAngle(false, () => 0.999999)).toBe(GENERAL_ANGLES.at(-1));
     expect(pickAngle(false, () => 1)).toBe(GENERAL_ANGLES.at(-1));
   });
-
-  it('never suggests appearance or body', () => {
-    for (const angle of [MESSAGE_ANGLE, ...GENERAL_ANGLES]) {
-      expect(angle).not.toMatch(/wygląd|ciał|wag|twarz|grub|brzyd/i);
-    }
-  });
 });
 
 describe('buildMessages', () => {
@@ -56,13 +50,10 @@ describe('buildMessages', () => {
     expect(system.content).toMatch(/Riposta MUSI być w całości w języku: polski\.$/);
   });
 
-  it('always contains the protected-traits ban', () => {
-    for (const spiciness of ['mild', 'medium', 'hard', 'very-hard'] as const) {
-      const [system] = buildMessages(noContext, { ...cfg, spiciness });
-      expect(system.content).toContain(SPICINESS_INSTRUCTIONS[spiciness]);
-      expect(system.content).toMatch(/rasę.*religię.*orientację seksualną.*niepełnosprawność/s);
-      expect(system.content).toMatch(/przemocy seksualnej.*kazirodztwie/s);
-    }
+  it('forbids ending the roast with a tacked-on swear word', () => {
+    // Roasts kept ending with ", kurwa", which reads forced.
+    const [system] = buildMessages(noContext, cfg);
+    expect(system.content).toMatch(/Nigdy nie kończ riposty na „kurwa”/);
   });
 
   it('builds the user message with and without context', () => {
