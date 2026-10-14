@@ -34,7 +34,21 @@ export const GENERAL_ANGLES = [
   'nie bo ty',
   'jej orientacja seksualna',
   'otyłość',
-  'chytrość'
+  'chytrość',
+  // Polish memes & internet culture
+  'polski mem: Janusz i Grażyna, Sebix i Karyna albo Janusz biznesu',
+  'polski mem: Kononowicz („nie będzie niczego”) albo Major Suchodolski',
+  'tekst z polskiego internetu: „kto pytał”, „dzban”, „zaorane”, „ale urwał”',
+  'przerobiona polska pasta (copypasta) z wykopu',
+  // Movie quotes (twisted to fit the person)
+  'przerobiony cytat z Wiedźmina („zaraza”, „mniejsze zło”)',
+  'przerobiony cytat ze Shreka w polskim dubbingu',
+  'przerobiony cytat z Władcy Pierścieni („nie przejdziesz!”) albo Gwiezdnych wojen',
+  // Formats
+  'w stylu clickbaitowego nagłówka z Pudelka albo Faktu',
+  'w stylu ogłoszenia na OLX („sprzedam…”)',
+  'w stylu komentarza sportowego Szpakowskiego',
+  'w stylu pilnego komunikatu w Wiadomościach albo alertu RCB',
 ] as const;
 
 export const DEFAULT_SYSTEM_PROMPT = [
