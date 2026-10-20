@@ -16,6 +16,6 @@
     "AI_REASONING_EFFORT": "low", // "" = don't send the parameter
     "ALLOWED_CHAT_IDS": "", // comma-separated chat ids; "" = all chats
     "SYSTEM_PROMPT": "", // "" = built-in; placeholders: {language} {spiciness} {angle}
-    "FALLBACK_TEXT": "Jestem cwelem xD"
+    "FALLBACK_TEXT": "Chyba Ty xD"
   }
 }
