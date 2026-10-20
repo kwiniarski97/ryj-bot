@@ -65,6 +65,56 @@ describe('generateRoast', () => {
   });
 });
 
+describe('generateRoast retry', () => {
+  const timeout = () => new DOMException('The operation was aborted due to timeout', 'TimeoutError');
+
+  function stubFetchSequence(...outcomes: (() => Response | Error)[]) {
+    const fetchMock = vi.fn(async (_input: RequestInfo | URL, _init?: RequestInit) => {
+      const outcome = outcomes[fetchMock.mock.calls.length - 1]();
+      if (outcome instanceof Error) throw outcome;
+      return outcome;
+    });
+    vi.stubGlobal('fetch', fetchMock);
+    vi.spyOn(console, 'warn').mockImplementation(() => {});
+    return fetchMock;
+  }
+
+  afterEach(() => vi.restoreAllMocks());
+
+  it('retries once after a timeout', async () => {
+    const fetchMock = stubFetchSequence(timeout, () => completion('Marek, cicho.'));
+    await expect(generateRoast(messages, opts)).resolves.toBe('Marek, cicho.');
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+  });
+
+  it('retries once after a 5xx', async () => {
+    const fetchMock = stubFetchSequence(
+      () => new Response('overloaded', { status: 503 }),
+      () => completion('Marek, cicho.'),
+    );
+    await expect(generateRoast(messages, opts)).resolves.toBe('Marek, cicho.');
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+  });
+
+  it('gives up after the second failure', async () => {
+    const fetchMock = stubFetchSequence(timeout, timeout);
+    await expect(generateRoast(messages, opts)).rejects.toThrow(/timeout/);
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+  });
+
+  it('does not retry a 4xx', async () => {
+    const fetchMock = stubFetchSequence(() => new Response('quota', { status: 429 }));
+    await expect(generateRoast(messages, opts)).rejects.toThrow(/429/);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
+  it('does not retry when the budget is spent', async () => {
+    const fetchMock = stubFetchSequence(timeout);
+    await expect(generateRoast(messages, { ...opts, budgetMs: 0 })).rejects.toThrow(/timeout/);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+});
+
 describe('cleanOutput', () => {
   it('strips <thought> blocks', () => {
     expect(cleanOutput('<thought>plan\nthings</thought>\nMarek, cicho.')).toBe('Marek, cicho.');
