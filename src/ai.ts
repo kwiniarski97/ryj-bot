@@ -38,6 +38,8 @@ export async function generateRoast(messages: ChatMessage[], opts: AiOptions): P
   const body: Record<string, unknown> = { model: opts.model, messages, temperature: 1.0, max_tokens: 300 };
   if (opts.reasoningEffort) body.reasoning_effort = opts.reasoningEffort;
 
+  console.log('[ai] prompt', JSON.stringify(messages));
+
   const deadline = Date.now() + (opts.budgetMs ?? DEFAULT_AI_BUDGET_MS);
   const timeoutMs = opts.timeoutMs ?? DEFAULT_AI_TIMEOUT_MS;
   try {
